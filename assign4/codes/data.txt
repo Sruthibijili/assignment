@@ -1,0 +1,3 @@
+Point 1: (-5, 4)
+Point 2: (-1, 6)
+Midpoint: (-3, 5)
