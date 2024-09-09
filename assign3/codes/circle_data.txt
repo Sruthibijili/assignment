@@ -1,3 +1,0 @@
-Point 1: (-6, 3)
-Point 2: (6, 4)
-Center of the circle: (0.00, 3.50)
