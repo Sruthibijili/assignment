@@ -1,0 +1,113 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{02-09-2020 shift-1-16-25}
+\author{EE24BTECH11060 - Sruthi Bijili}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\begin{enumerate}[start=16]
+    \item Let three real numbers $a,b,c$ be in arithmetic progression and $a+1$,$b$,$c+3$ are in geometric progression.If $a$\textgreater $10$ and the arithmetic mean of $a,b,c$ is $8$ ,then the cube of geometric mean of $a,b$ and $c$ is
+    \begin{enumerate}
+        \item $120$
+        \item $128$
+        \item $312$
+        \item $316$
+    \end{enumerate}
+    \item The value of $\frac{1\times2^2+2\times3^2+\dots+100\times\brak{101}^2}{1^2\times2+2^2\times3+\dots+100^2\times101}$ is
+    \begin{enumerate}
+        \item $\frac{306}{305}$
+        \item $\frac{305}{301}$
+        \item $\frac{31}{30}$
+        \item $\frac{32}{31}$
+    \end{enumerate}
+    \item If the coefficients of $x^4$,$x^5$ and $x^6$ in the expansion of $\brak{1+x}^n$ are in the arithmetic progression,then the maximum value of $n$ is:
+    \begin{enumerate}
+        \item $28$
+        \item $14$
+        \item $21$
+        \item $7$
+    \end{enumerate}
+    \item The area \brak{in sq.units} of the region described by $\cbrak{\brak{x,y}:y^2\leq 2x,and y\geq4x-1}$ is 
+    \begin{enumerate}
+        \item $\frac{8}{9}$
+        \item $\frac{9}{32}$
+        \item $\frac{11}{32}$
+        \item $\frac{11}{12}$
+    \end{enumerate}
+    \item If the function $f\brak{x}$=$\begin{cases}\frac{72^x-9^x-8^x+1}{\sqrt{2}-\sqrt{1+\cos{x}}},x\neq 0\\a\log_e2\log_e3,x=0\end{cases}$ is continuous at $x$=$0$, then the value of $a^2$ is equal to
+    \begin{enumerate}
+        \item $746$
+        \item $968$
+        \item $1250$
+        \item $1152$
+    \end{enumerate}
+    \item Let $y$=$y\brak{x}$ be the solution of differeential equation $\brak{x+y+2}^2dx=dy$,$y\brak{0}$=$-2$.Let the maximum and minimum values of the function $y$=$y\brak{x}$ in $\sbrak{0,\frac{\pi}{3}}$ be $\alpha$ and $\beta$,respectively.If $\brak{3\alpha+\pi}^2+\beta^2$=$\gamma+\delta\sqrt{3}$,$\gamma,\delta \in Z$,then $\gamma+\delta$ equals
+    \item In the tournament, a team plays $10$ matches with probabilities of winning and losing each match is $\frac{1}{3}$ and $\frac{2}{3}$ respectively.Let $x$ be the number of matches that the team wins,and $y$ be the number of matches that team loses.If the probability $P\bak{\abs{x-y} \leq 2}$ is p,then $3^9$p equals
+    \item Consider the line $L$ passing through the points $P\brak{1,2,1}$ and $Q\brak{2,1,-1}$.If the mirror image of the point $A\brak{2,2,2}$ in the line $L$ is $\brak{\alpha,\beta,\gamma}$,then $\alpha+\beta+6\gamma$ is equal to
+    \item If $\int\cosec^2{x}dx$=$\alpha\cot{x}\cosec{x}\brak{\cosec^2{x}+\frac{3}{2}}+\beta log_e\abs{\tan{\frac{x}{2}}}+C$ where $\alpha,\beta \in R$ and $C$ is the constant of integration,then the value of $8\brak{\alpha+\beta}$ equal
+    \item Let $f$:R$\to$R be a thrice differential function such that $f\brak{0}$=$0$,$f\brak{1}$=$1$,$f\brak{2}$=$-1$,$f\brak{3}$=$2$ and $f\brak{4}$=$-2$.Then the minimum number of zeroes of\brak{3f^{\prime}f^{\prime\prime}+ff^{\prime\prime\prime}}\brak{x} is 
+    \item There are $4$ men and $5$ women in Group A,and $5$ men and $4$ women in Group B.If $4$ persons are selected from each group,then the number of ways of selecting $4$ men and $4$ women is
+    \item Let $A$ be a $2\times2$ symmetric matrix such that A\myvec{1\\1}=\myvec{3\\7} and the determinent of $A$ be $1$.If $A^{-1}$=$\alpha A+\beta I$,where $I$ is an identity matrix of order $2\times2$,then $\alpha+\beta$ equals to
+    \item Consider a triangle ABC having the vertices $A\brak{1,2}$,$B\brak{\alpha,\beta}$,$C\brak{\gamma,\delta}$ and angles $\angle ABC$=$\frac{\pi}{6}$ and $\angle BAC$=$\frac{2\pi}{3}$.If the points $B$ and $C$ lie on the line $y$=$x+4$,then $\alpha^2+\gamma^2$ is equal to
+    \item Consider the function $f$:R$\to$R defined by $f\brak{x}$=$\frac{2x}{\sqrt{1+9x^2}}$.If the composition of $f$,$\brak{f\circ f\circ f\circ \dots \circ f}\brak{x}$=$\frac{2^{10}x}{\sqrt{1+9\alpha x^2}}$,then the value of $\sqrt{3\alpha+1}$ is equal to
+    \item Let $S$=$\cbrak{\sin^2{2\theta}:\brak{\sin^4{\theta}+\cos^4{\theta}}x^2+\brak{\sin{2\theta}}x+\brak{\sin^6{\theta}+\cos^6{\theta}}=0}$ has real roots.If $\alpha$ and $\beta$ be the smallest and largest elements of the set $S$,respectively,then 3\brak{\brak{\alpha-2}^2+\brak{\beta-1}^2} equals
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}
