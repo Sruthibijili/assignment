@@ -1,0 +1,288 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+\usepackage{multicol}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{Computation of eigen values}
+\author{EE24BTECH11060-Sruthi Bijili}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+\section*{Introduction}
+The main objective of this project is to write a code that should compute the Eigenvalues of the matrix. Eigenvalues and Eigenvectors are the fundamental concepts in linear algebra. An eigenvector is a non-zero vector $x$ that remains in the same direction (though it may be stretched or shrunk) when the linear transformation represented by matrix $A$ is applied to it. More formally, if $\lambda$ is an eigenvalue, then the vector $x$ is the corresponding eigenvector that satisfies the equation:
+\begin{center}
+    $A\Bar{x}$=$\lambda \Bar{x}$
+\end{center}
+The eigenvector remains in the same direction after the matrix transformation. The matrix only scales it by the factor $\lambda$. The equation can be written as:
+\begin{center}
+    $A\Bar{x}-\lambda I\Bar{x}$=$0$\\
+    $(A-\lambda I)\Bar{x}$=$0$
+\end{center}
+Now, the possible solutions for the above equation are the eigenvector to be zero or $\text{det} (A - \lambda I) = 0$. As we need nonzero eigenvectors, we take $\text{det}(A - \lambda I) = 0$ as the solution. This is one of the simplest methods for computing eigenvalues of a matrix.
+\section*{Algorithm Selection}
+There are several algorithms for computing eigenvalues, each with varying trade-offs in terms of time complexity, accuracy, and suitability for different types of matrices. Some of these algorithms are:
+\begin{itemize}
+    \item QR Algorithm
+    \item Power Iteration
+    \item Lanczos Algorithm
+    \item Jacobi Method
+\end{itemize}
+These are some of the algorithms that can be used to compute eigenvalues of the matrix. But each method has its own disadvantages. Here are some pros and cons for each algorithm:
+
+\subsection*{QR Algorithm}
+\textbf{Pros:}
+\begin{itemize}
+    \item Works for any square matrix (symmetric, non-symmetric).
+    \item Guarantees convergence to eigenvalues and computes all of them.
+    \item Simple and robust, with no need for preprocessing.
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
+    \item Time complexity of $O(n^3)$ per iteration, slow for large matrices.
+    \item Requires $O(n^2)$ memory, inefficient for large matrices.
+    \item Slow convergence for matrices with clustred or poorly separated eigenvalues.
+\end{itemize}
+
+\subsection*{Power Iteration}
+\textbf{Pros:}
+\begin{itemize}
+    \item Simple and memory efficient, requires only the largest eigenvector.
+    \item Fast for large, sparse matrices when only the largest eigenvalue is needed.
+    \item Easy to implement with low computational overhead.
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
+    \item Only finds the largest eigenvalue, not suitable for computing all eigenvalues.
+    \item Slow convergence if eigenvalues are not well-separated.
+    \item Sensitive to the initial guess, can fail with non-dominant eigenvalues.
+\end{itemize}
+
+\subsection*{Lanczos Algorithm}
+\textbf{Pros:}
+\begin{itemize}
+    \item Efficient for large, sparse matrices by exploiting sparsity.
+    \item Fast convergence for symmetric matrices, especially for a few eigenvalues.
+    \item Memory efficient, requiring only a subspace of the matrix.
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
+    \item Requires restarting to maintain orthogonality, adding complexity.
+    \item Numerical instability due to loss of orthogonality with many iterations.
+    \item Primarily suited for symmetric matrices, less effective for non-symmetric ones.
+\end{itemize}
+
+\subsection*{Jacobi Method}
+\textbf{Pros:}
+\begin{itemize}
+    \item Exact eigenvalues for symmetric matrices, with guaranteed convergence.
+    \item Simple to implement and understand, with straightforward iteration.
+    \item Parallelizable, suitable for high-performance computing on symmetric matrices.
+\end{itemize}
+\textbf{Cons:}
+\begin{itemize}
+    \item Slow convergence for large matrices, especially with many iterations.
+    \item Inefficient for non-symmetric matrices, limited to symmetric cases.
+    \item Time complexity of $O(n^3)$, impractical for large systems.
+\end{itemize}
+
+From all these algorithms, the best algorithm for general-purpose eigenvalue computation is the **QR algorithm**, as it can be applied to both symmetric and non-symmetric matrices and can handle complex eigenvalue cases.
+
+\section*{QR Algorithm Description}
+Given a matrix $ A $, decompose it into the product of an orthogonal matrix $ Q $ and an upper triangular matrix $ R $, such that:
+\begin{center}
+    $A = QR$
+\end{center}
+Form a new matrix by updating $A$ to the matrix $ A^\prime$ =$ RQ $. This new matrix is expected to have the same eigenvalues as $A $, but its structure improves with each iteration:
+\begin{center}
+    $A^\prime$ =$ RQ$
+\end{center}
+Repeat the process by taking  $A^\prime$ as the new $A $. As the iterations progress, the matrix converges to an upper triangular matrix, whose diagonal elements will be the eigenvalues of the original matrix $ A $.$A^\prime$ and all other matrices along the process have the same eigenvalues. So the main idea here is using
+repeated QR decomposition, we are trying to transform the matrix into an upper triangular matrix because the
+eigenvalues for a triangular matrix are its diagonal elements.\\
+Most important part in this algorithm is the QR Decomposition. There are various methods to do it. I have
+looked into three methods, they are:
+\begin{itemize}
+    \item Householder Reflections
+    \item Givens Reflections
+    \item Gram-schmidt Orthogonalization
+\end{itemize}
+Givens Rotations is numerically stable, is efficient but it is best used for only sparse matrices. Gram-Schmidt method even though is simple to implement, but only limited for small matrices, and it also
+numerically less stable.so,the best method is Householder Reflections,because of its high numerical stability,efficiency,and also applicable for dense matrices.
+\subsection*{Householder Reflections}
+we have to compute $A$=$QR$, for that the elements below the diagonal of $A$ is zero to make it as an upper triangular matrix. For this we use Householder matrices.\\
+A Householder matrix $H_{k} $that zeros out elements below the diagonal in column $k$ is given by:
+\begin{center}
+    $H_{k}$=$I-2vv^T$
+\end{center}
+where $\Vec{v}$=$\frac{\Vec{u}}{\abs{\abs{\Vec{u}}}}$ and $\Vec{u}$=$\Vec{r_{k}}-\begin{pmatrix}
+    \abs{\abs{\Vec{r_{k}}}}\\0\\.\\.\\0
+\end{pmatrix}$ where $\vec{r_{k}}$ is the column vector of the $k^th$ column in $R$ from the diagonal element.All the Householder matrices are orthogonal.So when we multiply all the holder matrices we get 
+\begin{center}
+    $H_{n}H_{n-1}\dots H_{1}A$=$R$
+\end{center}
+from this we get $Q$ as $\brak{H_{n}H_{n-1}\dots H_{1}}^T$=$Q$
+
+
+\section*{Time Complexity}
+QR decomposition (Householder Reflections) requires $O(n^3)$ operations for an $ n \times n $ matrix. While applying the algorithm itself, a matrix generally converges after $ O(n)$ iterations. So, the overall time complexity of the QR algorithm for a general matrix is:
+\begin{center}
+    $O(n^4)$
+\end{center}
+In general, if the algorithm converges in $k$ iterations, the overall time complexity is approximately:
+\begin{center}
+    $O(kn^3)$
+\end{center}
+\section{\textbf{C CODE}}
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+void qr_decompose(double **A, double **Q, double **R, int n)
+{
+for (int i = 0; i < n; i++){
+for (int j = 0; j < n; j++)
+Q[i][j] = A[i][j];
+for (int j = 0; j < n; j++) {
+   for (int k = 0; k < j; k++) {
+R[i][j] = 0;
+   }
+}
+double dot_product = 0;
+for (int i = 0; i < n; i++) {
+   dot_product += Q[i][k] * Q[i][j];
+}
+for (int i = 0; i < n; i++) {
+    Q[i][j] -= dot_product * Q[i][k];
+   }
+}
+double norm = 0;
+for (int i = 0; i < n; i++) {
+norm += Q[i][j] * Q[i][j];
+}
+norm = sqrt(norm);
+for (int i = 0; i < n; i++) {
+ Q[i][j] /= norm;
+}
+for (int k = 0; k < n; k++){
+   R[k][j] = 0;
+   for (int i = 0; i < n; i++) {
+       R[k][j] += Q[i][k] * A[i][j];
+    }
+  }
+ }
+}
+void qr_iteration(double **A, int n) {
+ double *Q = (double *)malloc(n * sizeof(double *));
+ double *R = (double *)malloc(n * sizeof(double *));
+for (int i = 0; i < n; i++) {
+  Q[i] = (double *)malloc(n * sizeof(double));
+  R[i] = (double *)malloc(n * sizeof(double));
+}
+
+for (int iter = 0; iter < 1000; iter++) {
+ qr_decompose(A, Q, R, n);
+
+for (int i = 0; i < n; i++)
+  for (int j = 0; j < n; j++) {
+     A[i][j] = 0;}
+     for (int k = 0; k < n; k++) {
+      A[i][j] += R[i][k] * Q[k][j];
+    }
+  }
+}
+
+double off_diag_sum = 0;
+for (int i = 0; i < n-1; i++)
+ for (int j = i+1; j < n; j++)
+    off_diag_sum += A[i][j] * A[i][j];
+  }
+ }
+if (off_diag_sum < 1e-6) break;
+}
+
+for (int i = 0; i < n; i++) {
+ printf("%f ",A[i][i]);
+}
+printf("\n");
+
+for (int i = 0; i < n; i++) {
+  free(Q[i]);
+  free(R[i]);
+ }
+ free(Q);
+ free(R);
+}
+
+int main() {
+int n;
+scanf("%d", &n);
+
+double *A = (double *)malloc(n * sizeof(double *));
+for (int i = 0; i < n; i++) {
+A[i] = (double *)malloc(n * sizeof(double));
+}
+for (int i = 0; i < n; i++) {
+  for (int j = 0; j < n; j++) {
+    scanf("%lf", &A[i][j]);
+  }
+}
+
+qr_iteration(A, n);
+
+for (int i = 0; i < n; i++) {
+  free(A[i]);
+ }
+free(A);
+return 0;
+}
+\end{lstlisting}\vspace{2cm}
+\end{document}
+e
